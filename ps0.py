@@ -43,13 +43,13 @@ cv2.waitKey(0)
 
 
 # Automated using built in function
-img2 = cv2.cvtColor(img1,cv2.COLOR_BGR2RGB)
+img_auto = cv2.cvtColor(img1,cv2.COLOR_BGR2RGB)
 cv2.namedWindow('image', cv2.WINDOW_AUTOSIZE)
-cv2.imshow('image',img2)
+cv2.imshow('image',img_auto)
 cv2.waitKey(0)
 
 os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')
-cv2.imwrite('ps0-2-a-1.png',img2)
+cv2.imwrite('ps0-2-a-1.png',img_auto)
 
 # 2.part b
 img_mono_green = img1[:,:,1]
@@ -64,3 +64,17 @@ cv2.imshow('image',img_mono_red)
 cv2.waitKey(0)
 os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')
 cv2.imwrite('ps0-2-c-1.png',img_mono_red)
+
+#part 3
+#convert to grayscale
+img_gray = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
+cv2.imshow('image',img_gray)
+height,width = img_gray.shape
+
+#replace centre 100x100 pixels
+centre_pixels = img_gray[206:305,206:305]
+img2 = cv2.imread('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output\ps0-1-a-2.png')
+img2_gray = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
+img2_gray[206:305,206:305] = centre_pixels
+cv2.imshow('image',img2_gray)
+cv2.waitKey(0)

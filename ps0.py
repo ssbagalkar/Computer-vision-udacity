@@ -78,3 +78,9 @@ img2_gray = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
 img2_gray[206:305,206:305] = centre_pixels
 cv2.imshow('image',img2_gray)
 cv2.waitKey(0)
+os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')
+cv2.imwrite('ps0-3-a-1.png',img2_gray)
+
+
+
+#part 4

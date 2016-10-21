@@ -107,9 +107,22 @@ cv2.destroyAllWindows()
 # part 4 c
 kernel = np.zeros((3,3),np.float32)
 kernel[1,0] = 1
-shift_img = signal.convolve2d(img_gray,kernel,mode='same')
+shift_img = signal.convolve2d(img_mono_green,kernel,mode='same')
 shift_img = cv2.divide(shift_img,255)
 cv2.imshow('shift_img',shift_img)
 cv2.waitKey(0)
 
+
+# part 4 c using geometric transformations
+tform = np.float32([[1,0,-2],[0,1,0]])
+row,col = img_mono_green.shape[:2]
+img_green_shifted = cv2.warpAffine(img_mono_green,tform,(col,row))
+img_green_sub_shift = cv2.subtract(img_mono_green,img_green_shifted)
+cv2.imshow('img_green_shifted',img_green_shifted)
+cv2.waitKey(0)
+cv2.imshow('img_green_shiftsub',img_green_sub_shift)
+cv2.waitKey(0)
+os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')
+cv2.imwrite('ps0-4-d-1.png',img_green_sub_shift)
+cv2.destroyAllWindows()
 

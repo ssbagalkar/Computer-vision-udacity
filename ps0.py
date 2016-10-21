@@ -37,10 +37,6 @@ img1[:,:,2] = blue
 cv2.imshow('img1',img1)
 cv2.waitKey(0)
 
-#save the modified file to the directory
-
-
-
 # Automated using built in function
 img_auto = cv2.cvtColor(img1,cv2.COLOR_BGR2RGB)
 cv2.imshow('img_auto',img_auto)
@@ -80,9 +76,6 @@ os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output'
 cv2.imwrite('ps0-3-a-1.png',img2_gray)
 
 
-
-
-
 #part 4
 max_img1_green = img_mono_green.max()
 min_img1_green = img_mono_green.min()
@@ -92,7 +85,7 @@ print "The max is %d and min is %d"%(max_img1_green,min_img1_green)
 (minVal,maxVal,minLoc,maxLoc) = cv2.minMaxLoc(img_mono_green)
 print "The automax is %d and automin is %d ."%(maxVal,minVal)
 
-##Subtract the mean,then divide by standard devaiation ,then multiply by 10 and finally add the mean back in
+##Subtract the mean,then divide by standard deviation ,then multiply by 10 and finally add the mean back in
 img_math = cv2.absdiff(img_mono_green,img_mono_green.mean())
 img_math = cv2.divide(img_mono_green,img_math.std())
 img_math = cv2.multiply(img_math,10)
@@ -113,6 +106,7 @@ cv2.imshow('shift_img',shift_img)
 cv2.waitKey(0)
 
 
+
 # part 4 c using geometric transformations
 tform = np.float32([[1,0,-2],[0,1,0]])
 row,col = img_mono_green.shape[:2]
@@ -120,6 +114,8 @@ img_green_shifted = cv2.warpAffine(img_mono_green,tform,(col,row))
 img_green_sub_shift = cv2.subtract(img_mono_green,img_green_shifted)
 cv2.imshow('img_green_shifted',img_green_shifted)
 cv2.waitKey(0)
+os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')
+cv2.imwrite('ps0-3-a-1.png',img_green_shifted)
 cv2.imshow('img_green_shiftsub',img_green_sub_shift)
 cv2.waitKey(0)
 os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')

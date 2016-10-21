@@ -16,6 +16,7 @@
 #import all necessary modules
 import cv2
 import numpy as np
+from scipy import signal
 import os
 from matplotlib import pyplot as plt
 
@@ -97,6 +98,18 @@ img_math = cv2.divide(img_mono_green,img_math.std())
 img_math = cv2.multiply(img_math,10)
 img_math = cv2.add (img_math,img_math.mean())
 cv2.imshow('img_math',img_math)
+cv2.waitKey(0)
+os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')
+cv2.imwrite('ps0-4-b-1.png',img_math)
+cv2.destroyAllWindows()
+
+
+# part 4 c
+kernel = np.zeros((3,3),np.float32)
+kernel[1,0] = 1
+shift_img = signal.convolve2d(img_gray,kernel,mode='same')
+shift_img = cv2.divide(shift_img,255)
+cv2.imshow('shift_img',shift_img)
 cv2.waitKey(0)
 
 

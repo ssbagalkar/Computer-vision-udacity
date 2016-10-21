@@ -15,15 +15,14 @@
 
 #import all necessary modules
 import cv2
-import numpy
+import numpy as np
 import os
 from matplotlib import pyplot as plt
 
 # 2.part a
 
 img1 = cv2.imread('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output\ps0-1-a-1.png')
-cv2.namedWindow('image', cv2.WINDOW_AUTOSIZE)
-cv2.imshow('image',img1)
+cv2.imshow('img1',img1)
 cv2.waitKey(0)
 
 
@@ -34,8 +33,7 @@ red = img1[:,:,2]
 #Manual : swap the channels
 img1[:,:,0] = red
 img1[:,:,2] = blue
-cv2.namedWindow('image', cv2.WINDOW_AUTOSIZE)
-cv2.imshow('image',img1)
+cv2.imshow('img1',img1)
 cv2.waitKey(0)
 
 #save the modified file to the directory
@@ -44,8 +42,7 @@ cv2.waitKey(0)
 
 # Automated using built in function
 img_auto = cv2.cvtColor(img1,cv2.COLOR_BGR2RGB)
-cv2.namedWindow('image', cv2.WINDOW_AUTOSIZE)
-cv2.imshow('image',img_auto)
+cv2.imshow('img_auto',img_auto)
 cv2.waitKey(0)
 
 os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')
@@ -53,14 +50,14 @@ cv2.imwrite('ps0-2-a-1.png',img_auto)
 
 # 2.part b
 img_mono_green = img1[:,:,1]
-cv2.imshow('image',img_mono_green)
+cv2.imshow('img_mono_green',img_mono_green)
 cv2.waitKey(0)
 os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')
 cv2.imwrite('ps0-2-b-1.png',img_mono_green)
 
 #2.part c
 img_mono_red = img1[:,:,2]
-cv2.imshow('image',img_mono_red)
+cv2.imshow('img_mono_red',img_mono_red)
 cv2.waitKey(0)
 os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')
 cv2.imwrite('ps0-2-c-1.png',img_mono_red)
@@ -68,7 +65,7 @@ cv2.imwrite('ps0-2-c-1.png',img_mono_red)
 #part 3
 #convert to grayscale
 img_gray = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
-cv2.imshow('image',img_gray)
+cv2.imshow('img_gray',img_gray)
 height,width = img_gray.shape
 
 #replace centre 100x100 pixels
@@ -76,11 +73,30 @@ centre_pixels = img_gray[206:305,206:305]
 img2 = cv2.imread('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output\ps0-1-a-2.png')
 img2_gray = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
 img2_gray[206:305,206:305] = centre_pixels
-cv2.imshow('image',img2_gray)
+cv2.imshow('img2_gray',img2_gray)
 cv2.waitKey(0)
 os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')
 cv2.imwrite('ps0-3-a-1.png',img2_gray)
 
 
 
+
+
 #part 4
+max_img1_green = img_mono_green.max()
+min_img1_green = img_mono_green.min()
+print "The max is %d and min is %d"%(max_img1_green,min_img1_green)
+
+#Using built in
+(minVal,maxVal,minLoc,maxLoc) = cv2.minMaxLoc(img_mono_green)
+print "The automax is %d and automin is %d ."%(maxVal,minVal)
+
+##Subtract the mean,then divide by standard devaiation ,then multiply by 10 and finally add the mean back in
+img_math = cv2.absdiff(img_mono_green,img_mono_green.mean())
+img_math = cv2.divide(img_mono_green,img_math.std())
+img_math = cv2.multiply(img_math,10)
+img_math = cv2.add (img_math,img_math.mean())
+cv2.imshow('img_math',img_math)
+cv2.waitKey(0)
+
+

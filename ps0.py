@@ -122,3 +122,14 @@ os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output'
 cv2.imwrite('ps0-4-d-1.png',img_green_sub_shift)
 cv2.destroyAllWindows()
 
+#part 5
+random_noise = np.random.randn(height,width)
+sigma = 0.2
+noise_matrix = random_noise*sigma
+norm_img = cv2.normalize(img_gray.astype('float'), None, 0.0, 1.0, cv2.NORM_MINMAX)
+noisy_img = np.add(norm_img,noise_matrix)
+cv2.imshow('noisy image2',noisy_img)
+cv2.waitKey(0)
+os.chdir('C:\Intro to computer vision\Computer-vision-udacity\ps0_python\Output')
+cv2.imwrite('ps0-4-d-1.png',noisy_img)
+cv2.destroyAllWindows()

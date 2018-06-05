@@ -23,18 +23,18 @@ function [H, theta, rho] = hough_lines_acc(BW, varargin)
 
     %% TODO: Your code here
     
-    H = zeros(180,size(edgeImg,1));
+    H = zeros(180,size(BW,1));
     
     % Find non-zero pixels i.e. edge points
     [edgePointsX,edgePointsY] = find(BW);
     
     for ii  = 1 : size(edgePointsX)
       
-      for theta = 0 : 180
+      for theta = 1 : 180
         
-        rho  = edgePointsX(ii) * cos(theta) + edgePointsY * sin(theta);
+        rho  = edgePointsX(ii) * cos(theta) - edgePointsY(ii) * sin(theta);
         
-        H(theta,rho) =+ 1; 
+        H(rho,theta) =+ 1; 
         
       end
       

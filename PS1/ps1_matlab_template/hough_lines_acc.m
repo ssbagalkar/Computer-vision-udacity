@@ -23,20 +23,40 @@ function [H, theta, rho] = hough_lines_acc(BW, varargin)
 
     %% TODO: Your code here
     
-    H = zeros(180,size(BW,1));
+    % Retrieve the size of image
+    [imgHeight, imgWidth] = size(BW);
     
-    % Find non-zero pixels i.e. edge points
-    [edgePointsX,edgePointsY] = find(BW);
+    % Get the max distance i.e the diagonal of image
+    distMax = round(sqrt(imgHeight * imgHeight + imgWidth * imgWidth ) );
     
-    for ii  = 1 : size(edgePointsX)
-      
-      for theta = 1 : 180
-        
-        rho  = edgePointsX(ii) * cos(theta) - edgePointsY(ii) * sin(theta);
-        
-        H(rho,theta) =+ 1; 
-        
+    theta = [-90 : 1 : 89];
+    rho = [-distMax : 1 : distMax] ;
+    
+    %generate the accumulator array
+    H = zeros(length(theta),length(rho));
+    
+    % Scan through the edge image
+    for x = 1 : imgWidth
+      for y = 1 : imgHeight
+        if BW(y,x) ~= 0     % if this is an edge point
+          
+          for iTheta = 1 : length(theta)
+            thetaRadians = theta(iTheta)*pi/180;  % get angle in radians 
+            
+            %Calculate distance from origin given this angle in radians
+            dist = x*cos(thetaRadians) + y*sin(thetaRadians);
+            
+            % Find the rho index closest to the dist 
+            [d, iRho] = min(abs(rho-dist));
+          
+            if d <= 1
+              H(iRho,iTheta) = H(iRho,iTheta) + 1;
+            end
+          
+          end
+        end
       end
+    
       
       
       

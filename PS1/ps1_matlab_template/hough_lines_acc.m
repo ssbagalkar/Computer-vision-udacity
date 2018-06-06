@@ -33,7 +33,7 @@ function [H, theta, rho] = hough_lines_acc(BW, varargin)
     rho = [-distMax : 1 : distMax] ;
     
     %generate the accumulator array
-    H = zeros(length(theta),length(rho));
+    H = zeros(length(rho),length(theta));
     
     % Scan through the edge image
     for x = 1 : imgWidth

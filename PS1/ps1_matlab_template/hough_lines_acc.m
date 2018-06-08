@@ -56,9 +56,8 @@ function [H, theta, rho] = hough_lines_acc(BW, varargin)
           end
         end
       end
-    
-      
-      
-      
     end
+    
+    % Convert to uint8
+    H = uint8(255 * mat2gray(H));
 end
